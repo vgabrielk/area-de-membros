@@ -38,15 +38,59 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+        <div class="flex flex-col gap-4">
+            <div id="creatorCard"
+                class="cursor-pointer border-2 rounded-lg p-6 mt-8 text-center bg-white transition-transform transform hover:scale-102"
+                onclick="selectCard('creator')">
+                <h2 class="text-xl font-semibold mb-2">Criador de Curso</h2>
+                <p>Quero criar e vender meus cursos na plataforma.</p>
+            </div>
+
+            <div id="memberCard"
+                class="cursor-pointer border-2 rounded-lg p-6 text-center bg-white transition-transform transform hover:scale-102"
+                onclick="selectCard('member')">
+                <h2 class="text-xl font-semibold mb-2">Membro</h2>
+                <p>Quero aprender e participar dos cursos disponíveis.</p>
+            </div>
+        </div>
+        <input type="hidden" name="role" id="roleInput"/>
+
+
+        <div class="flex items-center justify-between mt-6">
+            <a class="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 rounded-lg px-2 py-1 transition-all duration-200 ease-in-out"
                 href="{{ route('auth.view') }}">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
                 {{ __('Already registered?') }}
             </a>
 
-            <x-primary-button class="ms-4">
+            <x-primary-button>
                 {{ __('Register') }}
             </x-primary-button>
         </div>
     </form>
 </x-guest-layout>
+
+<script>
+    let selected = null;
+
+    function selectCard(type) {
+        const creatorCard = document.getElementById('creatorCard');
+        const memberCard = document.getElementById('memberCard');
+        const roleInput = document.getElementById('roleInput');
+
+        if (type === 'creator') {
+            selected = 'creator';
+            creatorCard.classList.add('border-blue-500', 'bg-blue-50');
+            memberCard.classList.remove('border-blue-500', 'bg-blue-50');
+        } else {
+            selected = 'member';
+            memberCard.classList.add('border-blue-500', 'bg-blue-50');
+            creatorCard.classList.remove('border-blue-500', 'bg-blue-50');
+        }
+
+        roleInput.value = selected;
+    }
+</script>

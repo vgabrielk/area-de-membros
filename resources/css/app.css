@@ -9,3 +9,64 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Global UI Improvements */
+@layer base {
+    /* Remove default focus outlines in favor of custom ring styles */
+    *:focus {
+        outline: none;
+    }
+    
+    /* Smooth scrolling */
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    /* Better focus handling for accessibility */
+    .focus\:outline-none:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+    }
+}
+
+@layer components {
+    /* Custom button animations */
+    .btn-scale {
+        @apply transform transition-transform duration-150 ease-in-out;
+    }
+    
+    .btn-scale:active {
+        @apply scale-95;
+    }
+    
+    /* Enhanced input styles */
+    .input-enhanced {
+        @apply w-full px-4 py-3 text-gray-900 bg-white border-2 border-gray-200 rounded-xl shadow-sm transition-all duration-200 ease-in-out placeholder-gray-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 hover:border-gray-300;
+    }
+    
+    /* Modern card styles */
+    .card-modern {
+        @apply bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6;
+    }
+    
+    /* Smooth transitions for all interactive elements */
+    .interactive {
+        @apply transition-all duration-200 ease-in-out;
+    }
+}
+
+@layer utilities {
+    /* Custom shadows */
+    .shadow-soft {
+        box-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04);
+    }
+    
+    .shadow-glow {
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+    }
+    
+    /* Glass effect */
+    .glass {
+        @apply backdrop-blur-sm bg-white/80 dark:bg-gray-800/80;
+    }
+}

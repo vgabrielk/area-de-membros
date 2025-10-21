@@ -23,17 +23,25 @@
         </div>
 
         <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox"
-                    class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
-                    name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+        <div class="flex items-center mt-6">
+            <x-checkbox id="remember_me" name="remember" />
+            <label for="remember_me" class="ml-3 text-sm font-medium text-gray-700 dark:text-gray-300 cursor-pointer">
+                {{ __('Remember me') }}
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button class="ms-3">
+        <div class="flex items-center justify-between mt-6">
+            @if (Route::has('password.request'))
+                <a class="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 rounded-lg px-2 py-1 transition-all duration-200 ease-in-out"
+                    href="{{ route('password.request') }}">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m0 0a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9a2 2 0 012-2m0 0V7a2 2 0 012-2m0 0V7a2 2 0 012-2"/>
+                    </svg>
+                    {{ __('Forgot your password?') }}
+                </a>
+            @endif
+
+            <x-primary-button>
                 {{ __('Log in') }}
             </x-primary-button>
         </div>

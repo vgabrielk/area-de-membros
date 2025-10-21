@@ -15,6 +15,15 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    {{-- :href="route('dashboard')" --}}
+                    @hasrole('creator')
+                        <x-nav-link :active="request()->routeIs('members')">
+                            {{ __('Membros') }}
+                        </x-nav-link>
+                        <x-nav-link :active="request()->routeIs('members')">
+                            {{ __('Cursos') }}
+                        </x-nav-link>
+                    @endhasrole
                 </div>
             </div>
 
@@ -22,9 +31,11 @@
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button type="button" class="flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 rounded-full">
+                        <button type="button"
+                            class="flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 rounded-full">
                             <span class="sr-only">Open user menu</span>
-                            <div class="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-semibold text-base shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 cursor-pointer">
+                            <div
+                                class="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-semibold text-base shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 cursor-pointer">
                                 {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                             </div>
                         </button>
@@ -78,6 +89,14 @@
             <x-responsive-nav-link :active="request()->routeIs('dashboard')" :href="route('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @hasrole('creator')
+                <x-responsive-nav-link :active="request()->routeIs('members')">
+                    {{ __('Membros') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :active="request()->routeIs('members')">
+                    {{ __('Cursos') }}
+                </x-responsive-nav-link>
+            @endhasrole
         </div>
 
         <!-- Responsive Settings Options -->

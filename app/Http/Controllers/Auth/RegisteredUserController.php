@@ -19,7 +19,7 @@ class RegisteredUserController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if($user){
+        if ($user) {
             return redirect()->back();
         }
         return view('auth.register');
@@ -43,6 +43,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        $user->assignRole($request->role);
 
         event(new Registered($user));
 
