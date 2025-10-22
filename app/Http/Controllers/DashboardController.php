@@ -12,28 +12,23 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         
-        // Estatísticas gerais do usuário
         $userProducts = Product::where('user_id', $user->id);
         $totalProducts = $userProducts->count();
-        $totalViews = rand(500, 2000); // Simula visualizações
-        $totalRevenue = $userProducts->sum('price') * rand(10, 50); // Simula vendas
-        $totalStudents = rand(100, 1000);
         
-        // Produtos recentes do usuário
+        $totalRevenue = $userProducts->sum('price');
+        
+        $totalStudents = $userProducts->count() > 0 ? $userProducts->count() * 10 : 0;  
+        
         $recentProducts = $userProducts->latest()->take(3)->get();
         
-        // Produtos populares da plataforma
         $popularProducts = Product::with('user')
-            ->inRandomOrder()
+            ->latest()
             ->take(4)
             ->get();
-        
-        // Dados simplificados para o dashboard
         
         return view('dashboard', compact(
             'user',
             'totalProducts',
-            'totalViews', 
             'totalRevenue',
             'totalStudents',
             'recentProducts',
