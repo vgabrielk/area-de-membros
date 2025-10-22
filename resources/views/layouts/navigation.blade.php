@@ -15,15 +15,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    {{-- :href="route('dashboard')" --}}
-                    @hasrole('creator')
-                        <x-nav-link :active="request()->routeIs('members')">
-                            {{ __('Membros') }}
-                        </x-nav-link>
-                        <x-nav-link :active="request()->routeIs('members')">
+                        <x-nav-link :href="route('products')" :active="request()->routeIs('products')">
                             {{ __('Cursos') }}
                         </x-nav-link>
-                    @endhasrole
                 </div>
             </div>
 
@@ -126,3 +120,43 @@
         </div>
     </div>
 </nav>
+@if (session('success'))
+    <div
+        x-data="{ show: true }"
+        x-show="show"
+        x-transition
+        x-init="setTimeout(() => show = false, 4000)"
+        class="fixed top-4 right-4 w-96 px-4 py-3 bg-green-100 border border-green-400 text-green-800 rounded-lg shadow-lg flex items-center justify-between z-50"
+    >
+        <div class="flex items-center space-x-2">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="font-medium">{{ session('success') }}</span>
+        </div>
+        <button @click="show = false" class="text-green-700 hover:text-green-900 font-bold text-lg leading-none">
+            &times;
+        </button>
+    </div>
+@endif
+
+@if (session('error'))
+    <div
+        x-data="{ show: true }"
+        x-show="show"
+        x-transition
+        x-init="setTimeout(() => show = false, 4000)"
+        class="fixed top-4 right-4 w-96 px-4 py-3 bg-red-100 border border-red-400 text-red-800 rounded-lg shadow-lg flex items-center justify-between z-50"
+    >
+        <div class="flex items-center space-x-2">
+            <!-- Ícone de erro -->
+            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <span class="font-medium">{{ session('error') }}</span>
+        </div>
+        <button @click="show = false" class="text-red-700 hover:text-red-900 font-bold text-lg leading-none">
+            &times;
+        </button>
+    </div>
+@endif

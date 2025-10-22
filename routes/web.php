@@ -3,9 +3,8 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VerifyAccountController;
-
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,7 +16,7 @@ Route::post('/register', [RegisteredUserController::class, 'store'])->name('regi
 Route::get('/auth/login', [AuthenticatedSessionController::class, 'create'])->name('auth.view');
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
-Route::get('/home', function(){
+Route::get('/home', function () {
     return view('dashboard');
 });
 
@@ -44,5 +43,16 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+    Route::get('products', [ProductController::class, 'index'])->name('products');
+    Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
+
+    Route::post('products/store', [ProductController::class, 'store'])->name('products.store');
+
+    Route::get('products/{product}/show', [ProductController::class, 'show'])->name('products.show');
+    Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('products/{product}/update', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('products/{product}/delete', [ProductController::class, 'destroy'])->name('products.destroy');
+
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
